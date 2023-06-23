@@ -1,0 +1,14 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+Person(user, "Клиент")
+System_Ext(mainframe_system, "Основная система банка", $descr="Хранит всю основную банковскую информацию о клиентах, счетах, транзакциях, тарифах и т.п.")
+System_Ext(email_system, "Внешний почтовый сервис", $descr="")
+
+System_Boundary(c1, "Онлайн Банк", $link="https://github.com/plantuml-stdlib/C4-PlantUML") {
+    Container(web_app, "Веб приложение", $descr="Просмотр состояния счетов. Совершение платежей онлайн.", $link="https://github.com/plantuml-stdlib/C4-PlantUML/blob/master/LayoutOptions.md")
+}
+
+Rel(user, c1, "Просматривает баланс счетов и совершает платежи с помощью", "HTTPS")
+Rel(email_system, user, "Отправляет email")
+@enduml

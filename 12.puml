@@ -1,0 +1,16 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+Container(web_app, "Веб приложение", $descr="Предоставляет статичный контент для SPA.", $link="https://github.com/plantuml-stdlib/C4-PlantUML/blob/master/LayoutOptions.md")
+Container(spa, "SPA", $descr="Предоставляет клиентам онлайн функционал с помощью веб браузера.", $link="https://github.com/plantuml-stdlib/C4-PlantUML/blob/master/LayoutOptions.md")
+ContainerDb(db, "База данных", "Реляционная база данных", $descr="Хранит регистрационную информацию, хешированные учетные данные аутентификации, логи и т.п.", $link="https://github.com/plantuml-stdlib/C4-PlantUML/blob/master/LayoutOptions.md")
+
+System_Boundary(api, "API Приложение", $link="https://github.com/plantuml-stdlib/C4-PlantUML/blob/master/LayoutOptions.md") {
+    Container(sign_in, "Sign in Controller", "Spring MVC Rest Controller", $descr="Принимает и обрабатывает запросы авторизации и аутентификации")
+    Container(security, "Security Component", "Spring Bean", $descr="Предоставляет функционал авторизации и аутентификации")
+}
+
+Rel(sign_in, security, "Использует")
+Rel(security, db, "Чтение и запись", "JDBC")
+
+@enduml
